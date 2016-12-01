@@ -37,6 +37,17 @@ namespace Combinatorics
 
         public static IEnumerable<List<uint>> Run(IList<uint> values, long sum)
         {
+            if(values.Count > sizeof(ulong) * 8)
+            {
+                throw new ArgumentException(
+                    $"{nameof(values)} may only contain up to {sizeof(ulong) * 8} items.");
+            }
+
+            if(sum <= 0)
+            {
+                throw new ArgumentException($"{nameof(sum)} must be greater than 0.");
+            }
+
             var solutions = new HashSet<Solution>();
 
             Backtrack(
