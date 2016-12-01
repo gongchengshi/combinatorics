@@ -4,7 +4,7 @@ namespace Combinatorics
 {
     /// <summary>
     /// General backtracking algorithm for up to 2^64 possible solutions.
-    /// Runtime complexity: O(n * 2^n+1) where 0>=n<=64 and assuming prune method is O(n)
+    /// Runtime complexity: O(n * 2^n) where 0>=n<=64 and assuming prune method is O(n)
     /// Space complexity: O(2^n+1)
     /// </summary>
     public class Backtrack64
@@ -31,16 +31,21 @@ namespace Combinatorics
             _prune = prune;
         }
 
-        public static void Run(int n, Func<ulong, bool> prune) => new Backtrack64(n, prune).Bt(0u, 0);
+        public static void Run(int n, Func<ulong, bool> prune) => new Backtrack64(n, prune).Bt(0u, 0, true);
 
         // TODO: Don't check right branches just recurse.
-        private void Bt(ulong candidate, int depth)
+        private void Bt(ulong candidate, int depth, bool leftBranch)
         {
-            // Stop recursion if the branch should be pruned or the bottom of the tree has been reached.
-            if (_prune(candidate) || depth == _n) { return; }
+            // Stop recursion if the branch should be pruned.
+            // Only left branches are checked for pruning because
+            // right branches have the same candidate as the parent.
+            if (leftBranch && _prune(candidate)) { return; }
 
-            Bt(candidate | (1u << depth), depth + 1); // Left branch
-            Bt(candidate, depth + 1); // Right branch
+            // Stop recursion if the bottom of the tree has been reached.
+            if (depth == _n) { return; }
+
+            Bt(candidate | (1u << depth), depth + 1, true); // Left branch
+            Bt(candidate, depth + 1, false); // Right branch
         }
 
         /// <summary>

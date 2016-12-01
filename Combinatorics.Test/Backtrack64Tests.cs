@@ -12,12 +12,7 @@ namespace Combinatorics.Test
             var actualSolutions = new List<ulong>();
             var expectedSolutions = new List<ulong>()
             {
-                0x0,
-                0x0, 0x0, 0x0,
-                0x1, 0x1, 0x1,
-                0x2, 0x2,
-                0x3, 0x3,
-                0x4, 0x5, 0x6, 0x7
+                0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7
             };
             expectedSolutions.Sort();
 
@@ -29,7 +24,7 @@ namespace Combinatorics.Test
             });
             actualSolutions.Sort();
 
-            Assert.Equal(Math.Pow(2, n+1)-1, actualSolutions.Count);
+            Assert.Equal(Math.Pow(2, n), actualSolutions.Count);
             Assert.Equal(expectedSolutions, actualSolutions);
         }
 
@@ -39,11 +34,7 @@ namespace Combinatorics.Test
             var actualSolutions = new List<ulong>();
             var expectedSolutions = new List<ulong>()
             {
-                0x0,
-                0x0, 0x0, 0x0,
-                0x1, 0x1, 0x1,
-                0x2, 0x2,
-                0x3, 0x4, 0x5, 0x6
+                0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6
             };
             expectedSolutions.Sort();
 
