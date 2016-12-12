@@ -7,9 +7,9 @@ namespace Combinatorics
 {
     public static class SubsetSum
     {
-        class Solution : List<uint>, IEquatable<Solution>
+        class Solution : List<int>, IEquatable<Solution>
         {
-            public Solution(IEnumerable<uint> values) : base(values)
+            public Solution(IEnumerable<int> values) : base(values)
             {
                 Sort();
             }
@@ -35,7 +35,7 @@ namespace Combinatorics
             public override string ToString() => string.Join(", ", this);
         }
 
-        public static IEnumerable<List<uint>> Run(IList<uint> values, long sum)
+        public static IEnumerable<List<int>> Run(IList<int> values, long sum)
         {
             if(values.Count > sizeof(ulong) * 8)
             {
@@ -46,6 +46,14 @@ namespace Combinatorics
             if(sum <= 0)
             {
                 throw new ArgumentException($"{nameof(sum)} must be greater than 0.");
+            }
+
+            if(values.Any(x => x < 0))
+            {
+                if(sum <= 0)
+                {
+                    throw new ArgumentException($"{nameof(SubsetSum)} only works with positive values.");
+                }
             }
 
             var solutions = new HashSet<Solution>();

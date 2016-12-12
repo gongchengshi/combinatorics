@@ -18,7 +18,7 @@ namespace Combinatorics.Tests
         [Fact()]
         public void RunTest()
         {
-            var values = new List<uint>
+            var values = new List<int>
             {
                 8, 8, 8, 8, 8, 8, 8, 8,
                 10, 10, 10, 10, 10, 10,
